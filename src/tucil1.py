@@ -1,5 +1,7 @@
 import time
+import os
 
+# fungsi untuk konversi kata dengan angka yang sesuai
 def konversi(kata, subs):
     s=''
     for huruf in kata:
@@ -8,6 +10,7 @@ def konversi(kata, subs):
         s=s+str(subs[1][idx])
     return int(s)
 
+# fungsi untuk permutasi semua kemungkinan angka
 def permut(arr,n):
     if n<=0:
         return[[]]
@@ -19,8 +22,11 @@ def permut(arr,n):
             dummy.append([current]+p)
     return dummy
 
+# menerima input dari folder test
+cur_dir = os.path.dirname(os.path.realpath(__file__))
+new_dir = cur_dir[:len(cur_dir)-3]+'test\\'
 namafile = input("Masukkan nama file: ")
-f = open(namafile)
+f = open(new_dir+namafile)
 
 start = time.time()
 data = f.read()
@@ -45,10 +51,10 @@ operan.append(dummy)
 huruf=operan+list(hasil)
 union=sorted(list(set().union(*huruf)))
 
+# mencari penyelesaian dengan menguji satu-satu permutasinya
 angka=[0,1,2,3,4,5,6,7,8,9]
 counter=0
 solusi=False
-
 for p in permut(angka,len(union)):
     counter+=1
     subs=[union]+[p]
@@ -58,6 +64,7 @@ for p in permut(angka,len(union)):
 
 end=time.time()
 
+# menuliskan output
 print(data)
 print()
 if solusi:
@@ -71,3 +78,4 @@ else:
 print()
 print("Waktu eksekusi programnya adalah "+str(end-start))
 print("Total tes yang dilakukan adalah "+str(counter))
+dummy=input() # menerima sembarang input agar dapat menampilkan output pada file .exe
